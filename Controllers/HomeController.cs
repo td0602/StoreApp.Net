@@ -45,6 +45,12 @@ public class HomeController : Controller
         return View(sanPham);
     }
 
+    public IActionResult ProductDetail(string maSp) {
+        var sanPham = _dbContext.TDanhMucSps.SingleOrDefault(item => item.MaSp == maSp);
+        var anhSanPham = _dbContext.TAnhSps.Where(item => item.MaSp == maSp).ToList();
+        var homeProductDetailViewModel = new HomeProductDetailViewModel(){danhMucSp=sanPham, anhSps=anhSanPham};
+        return View(homeProductDetailViewModel);
+    }
     public IActionResult Privacy()
     {
         return View();
