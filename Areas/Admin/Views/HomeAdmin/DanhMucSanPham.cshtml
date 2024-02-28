@@ -1,0 +1,86 @@
+@* @model IEnumerable<StoreApp.Models.TDanhMucSp> *@
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<TDanhMucSp>
+
+@{
+    ViewData["Title"] = "Danh Mục Sản Phẩm";
+    @* Layout mac dinh da dinh nghia trong ViewStart *@
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr class="table-warning">
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Cân nặng
+            </th>
+            <th>
+                Độ nới
+            </th>
+            <th>
+                Thời gian bảo hành
+            </th>
+            <th>
+                Chiết khấu
+            </th>
+            <th>
+                Giá nhỏ nhất
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@{
+    int i = 0;
+    string cls="";
+}
+@foreach (var item in Model) {
+    if(i % 2 == 0) {
+        cls = "table-success";
+    } else{
+        cls = "table-primary";
+    }
+    i += 1;
+        <tr class=@cls>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CanNang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoNoi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThoiGianBaoHanh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChietKhau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaNhoNhat)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.MaSp">Xem</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaSp">Xóa</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaSp">Chi Tiết</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("DanhMucSanPham", new {page=page}), new
+X.PagedList.Web.Common.PagedListRenderOptions(){
+LiElementClasses = new List<String> {"page-item"},
+PageClasses = new List<String> {"page-link"}
+})
