@@ -3,6 +3,7 @@ using App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreApp.Models;
+using StoreApp.Models.Authentication;
 using X.PagedList;
 
 namespace StoreApp.Controllers;
@@ -19,6 +20,8 @@ public class HomeController : Controller
         _dbContext = dbContext;
     }
 
+    //kiểm tra xem đã đăng nhập chưa
+    [Authentication]
     public IActionResult Index(int? page)
     {
         int pageSize = 8;

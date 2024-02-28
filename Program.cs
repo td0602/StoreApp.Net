@@ -12,6 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<QLBanVaLiContext>();
 //cấu hình dịch vụ cho các Repository
 builder.Services.AddScoped<ILoaiSpRepository, LoaiSpRepository>();
+// đăng ký dịch vụ Session phục vụ login logout
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,9 +30,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Access}/{action=Login}/{id?}"); // để vào bắt buộc đăng nhập
 
 app.Run();
